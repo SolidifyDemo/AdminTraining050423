@@ -1,0 +1,33 @@
+name: Matrix-Workflow
+on:   
+  workflow_dispatch:
+
+concurrency:
+  cancel-in-progress : true
+  group: branch-${{github.ref}}
+
+jobs:
+  matrix:        
+    name: matrix-job
+    runs-on: ${{matrix.runner}}
+    environment: testing-2
+    strategy:
+      matrix:
+        runner: [ubuntu-20.04,ubuntu-18.04,windows-2022, windows-2019,macos-latest]
+      max-parallel: 8
+      fail-fast: true
+    steps:
+      - name: Running on ${{matrix.runner}}
+        run: | 
+          echo "hello from ${{matrix.runner}} "
+          sleep 15
+  
+  job-2:
+    runs-on: ubuntu-latest    
+    steps:
+      
+      - name: Running on ${{matrix.runner}}
+        run: | 
+          echo "hello from ${{matrix.runner}} "
+          sleep 15
+  
