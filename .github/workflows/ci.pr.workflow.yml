@@ -1,0 +1,14 @@
+name: pr workflow
+
+on: 
+  pull_request:    
+  workflow_dispatch:
+
+
+jobs:
+  call-workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "pr build"
+          exit 1
